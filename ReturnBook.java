@@ -135,7 +135,7 @@ class ReturnBook extends JFrame implements ActionListener
 		Period.setBounds(20,330,200,30);
 		Period.setFont(f1);
 		
-		Return_Dt=new JLabel("Return_Date :  ");
+		Return_Dt=new JLabel("Return_Date : (YYYY-MM-DD) ");
 		Return_Dt.setBounds(20,380,200,30);
 		Return_Dt.setFont(f1);
 
@@ -172,7 +172,7 @@ class ReturnBook extends JFrame implements ActionListener
 		t5.setFont(f2);
 
 		
-		t6=new JTextField("YYYY/MM/DD");
+		t6=new JTextField();
 		t6.setBounds(300,380,200,30);
 		//t6.setEditable(false);
 		t6.setFont(f2);
@@ -227,12 +227,12 @@ class ReturnBook extends JFrame implements ActionListener
 	{
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-				
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+					
 							
-			ps1=con.prepareStatement("select u_name,bk_name,publisher,isue_dt,period from view_issue where u_name=? and bk_name=?");
-			smt=con.prepareStatement("delete from view_issue where u_name=? and bk_name=?");
+			ps1=con.prepareStatement("select name,book_name,author,issued,period from view_issue where name=? and book_name=?");
+			smt=con.prepareStatement("delete from view_issue where name=? and book_name=?");
 			
 			
 		}catch(Exception ae)
@@ -391,7 +391,16 @@ class ReturnBook extends JFrame implements ActionListener
 							
 											smt.executeUpdate();
 						
-									JOptionPane.showMessageDialog(this,t.getText()+"Successfully Returned Book!!");
+									JOptionPane.showMessageDialog(this,t.getText()+" Successfully Returned Book!!");
+
+									t.setText(" ");
+									ts.setText(" ");
+									t1.setText(" ");
+									t2.setText(" ");
+									t3.setText(" ");
+									t4.setText(" ");
+									t5.setText(" ");
+									t6.setText(" ");	
 								}
 						
 			

@@ -153,13 +153,13 @@ class UBook extends JFrame implements ActionListener
 		
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
 			
 			//query
 			//query
 			smt=con.createStatement();
-			ps=con.prepareStatement("select * from view_issue where u_name=? and u_pass=?");
+			ps=con.prepareStatement("select * from view_issue where name=? and password=?");
 			
 		}catch(Exception e)
 			{
@@ -201,10 +201,6 @@ public void getBk()
 			i=j=0;
 			while(rs.next())
 			{
-				data[i][j]=rs.getString(1);
-				j++;
-				data[i][j]=rs.getString(6);
-				j++;
 				data[i][j]=rs.getString(2);
 				j++;
 				data[i][j]=rs.getString(3);
@@ -212,6 +208,10 @@ public void getBk()
 				data[i][j]=rs.getString(4);
 				j++;
 				data[i][j]=rs.getString(5);
+				j++;
+				data[i][j]=rs.getString(6);
+				j++;
+				data[i][j]=rs.getString(7);
 				j++;
 				
 			

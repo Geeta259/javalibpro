@@ -130,7 +130,7 @@ class AddUsr extends JFrame implements ActionListener,MouseListener
 		t3.setEditable(false);
 		p2.add(t3);
 	
-		t4=new JTextField("D.O.B (DD/MM/YYYY)");
+		t4=new JTextField("D.O.B (YYYY-MM-DD)");
 		t4.setBounds(320,110,250,30);
 		t4.setFont(f2);
 		t4.setEditable(false);
@@ -204,16 +204,16 @@ class AddUsr extends JFrame implements ActionListener,MouseListener
 		{
 			//for connect into database
 
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		   con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-			
-
-			//query
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+		
+		//query
 			smt=con.createStatement();
 			rs=smt.executeQuery("select * from user_req");
-			ps=con.prepareStatement("Insert into members values(?,?,?,?,?,?,?,?)");
 
-			ps1=con.prepareStatement("Delete from user_req where name=? and passwd=?");
+			ps=con.prepareStatement("Insert into members(name,password,gender,dob,address,city,email,contact) values(?,?,?,?,?,?,?,?)");
+
+			ps1=con.prepareStatement("Delete from user_req where name=? and password=?");
 			
 			
 
@@ -235,8 +235,6 @@ class AddUsr extends JFrame implements ActionListener,MouseListener
 			{
 				
 				
-				Data[i][j]=rs.getString(1);
-				j++;
 				Data[i][j]=rs.getString(2);
 				j++;
 				Data[i][j]=rs.getString(3);
@@ -250,6 +248,8 @@ class AddUsr extends JFrame implements ActionListener,MouseListener
 				Data[i][j]=rs.getString(7);
 				j++;
 				Data[i][j]=rs.getString(8);
+				j++;
+				Data[i][j]=rs.getString(9);
 				j++;
 
 			
@@ -380,17 +380,12 @@ public void mouseReleased(MouseEvent e)
 	
 		JOptionPane.showMessageDialog(this,t1.getText()+" "+"User Record Successfully Saved in Database");
 		
-		ps1.setString(1,t1.getText());
-		ps1.setString(2,t2.getText());
-		ps1.executeUpdate();
-		
-	
 		
 	
 		t1.setText("NAME");
 		t2.setText("PASSWORD");
 		t3.setText("GENDER");
-		t4.setText("D.O.B(DD/MM/YYYY)");
+		t4.setText("D.O.B(YYYY-MM-DD)");
 		
 		t5.setText("ADDRESS");
 		t6.setText("CITY");
@@ -433,7 +428,7 @@ public void mouseReleased(MouseEvent e)
 											t1.setText("NAME");
 											t2.setText("PASSWORD");
 											t3.setText("GENDER");
-											t4.setText("D.O.B(DD/MM/YYYY)");
+											t4.setText("D.O.B(YYYY-MM-DD)");
 											t4.setEditable(false);
 											t5.setText("ADDRESS");
 											t6.setText("CITY");

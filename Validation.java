@@ -61,7 +61,7 @@ public boolean isValidDate(String inDate)
 {
 		
 		
-		SimpleDateFormat dt=new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dt=new SimpleDateFormat("yyyy/mm/dd");
 		dt.setLenient(false);
 
 		try

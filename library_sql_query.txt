@@ -1,0 +1,13 @@
+mysql query for library management system project
+
+create table books_detail(id int(5) primary key,book_name varchar(255),publisher varchar(255),year varchar(10),pr
+ice varchar(10),quantity varchar(5),pages varchar(10),category varchar(255),shelf varchar(5));
+
+ create table  login(id int(5) primary key auto_increment,u_name varchar(255),password varchar(255));
+
+ insert into login(u_name,password)values('admin','library');
+
+ create table members(id int(5) primary key auto_increment,name varchar(255),password varchar(255),gender varchar(255),dob date,address varchar(255),city varchar(255),email varchar(255),contact varchar(15));
+
+create table view_issue(id int(5) primary key auto_increment,name varchar(255),password varchar(255),book_name va
+rchar(255),author varchar(255),issued date,period varchar(15));

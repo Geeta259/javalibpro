@@ -262,13 +262,12 @@ class DeleteBook extends JFrame implements ActionListener
 		{
 
 			
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+			
 		s=con.createStatement();
-		ps=con.prepareStatement("Select * from books_detail where bid=?");
-		ps1=con.prepareStatement("Delete  from books_detail where bid=?");
-
+		ps=con.prepareStatement("Select * from books_detail where id=?");
+		
 		}catch(Exception ae)
 		{
 			System.out.println(ae);
@@ -336,7 +335,7 @@ public void  search(String st)
 			t7.setText(rs.getString(8));					
 			t8.setText(rs.getString(9));
 
-			ts.setEditable(false);
+			
 			t1.setEditable(false);
 			t2.setEditable(false);
 			t3.setEditable(false);
@@ -372,7 +371,7 @@ public void delete()
 	
 		if(c==0)
 		{
-			ps1=con.prepareStatement("Delete  from books_detail where bid=?");
+			ps1=con.prepareStatement("Delete  from books_detail where id=?");
 			ps1.setString(1,ts.getText());
 			ps1.executeUpdate();
 			JOptionPane.showMessageDialog(this,ts.getText()+"Book Record Delete Successfully");

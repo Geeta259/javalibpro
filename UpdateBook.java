@@ -276,12 +276,12 @@ class UpdateBook extends JFrame implements ActionListener
 		{
 
 			
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+			
 		s=con.createStatement();
-		ps=con.prepareStatement("Select * from books_detail where bid=?");
-		ps1=con.prepareStatement("Update books_detail set bname=?,publisher=?,year=?,price=?,quantity=?,pages=?,category=?,bookshelf_no=? where bid=?");
+		ps=con.prepareStatement("Select * from books_detail where id=?");
+		ps1=con.prepareStatement("Update books_detail set book_name=?,publisher=?,year=?,price=?,quantity=?,pages=?,category=?,shelf=? where id=?");
 
 		}catch(Exception ae)
 		{

@@ -157,13 +157,13 @@ class SignIn extends JFrame	 implements ActionListener,ItemListener
 	
 		p1.add(c1);
 		
-		dob=new JLabel("Date-Of-Birth(D.O.B) :");
+		dob=new JLabel("D-O-B(YYYY-MM-DD)");
 		dob.setBounds(310,150,250,30);
 		dob.setFont(f2);
 		
 		p1.add(dob);
 		
-		t3=new JTextField("DD/MM/YYYY");
+		t3=new JTextField();
 		t3.setBounds(310,180,250,30);
 		t3.setFont(f3);
 		
@@ -276,10 +276,10 @@ class SignIn extends JFrame	 implements ActionListener,ItemListener
 {
 	try
 	{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
 		
-		smt=con.prepareStatement("Insert into user_req values(?,?,?,?,?,?,?,?)");
+		smt=con.prepareStatement("Insert into user_req(name,password,gender,dob,address,city,email,phone) values(?,?,?,?,?,?,?,?)");
 		
 	}catch(Exception e)
 	{
@@ -351,12 +351,12 @@ public void enterRecord()
 		
 		try
 		{
-			test=new Date(t3.getText());
+			test=new Date();
 			te=test.getTime();
 
 		}catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null,"Invalid Date Format!!It must be like this(dd-jan(mm)-yyyy)");
+			JOptionPane.showMessageDialog(null,"Invalid Date Format!!It must be like this 'yyyy-mm-dd'");
 			JOptionPane.showMessageDialog(null,"Please enter correct given format d.o.b before submit your form ");
 			//t3.setText(" ");
 			c=1;
@@ -398,11 +398,12 @@ JOptionPane.showMessageDialog(null,"Enter Address,It field should not be blank!!
 			else if(t5.getText().length()==0)
 JOptionPane.showMessageDialog(null,"Enter E-Mail,It field should not be blank!! ");
 
-			else if(!valid.isValidEmail(t5.getText()))
-JOptionPane.showMessageDialog(null,"Enter a valid E-Mail");
+		else if(t5.getText().length()==0)
+		JOptionPane.showMessageDialog(null,"Enter E-Mail,It field should not be blank!! ");
 
-	else if(t6.getText().length()==0)
-JOptionPane.showMessageDialog(null,"Enter Contact No.,It field should not be blank!! ");		
+
+	else if(!valid.isValidEmail(t5.getText()))
+JOptionPane.showMessageDialog(null,"Enter a valid email");		
 
 			
 			else if(valid.isValidNumber(t6.getText()))
@@ -437,6 +438,14 @@ JOptionPane.showMessageDialog(null,"Contact should be in 10 digits Only");
 		
 		smt.executeUpdate();
 		JOptionPane.showMessageDialog(this,t1.getText()+"!!"+"Your Request Successfully Submitted !!!!!");
+
+		t1.setText(" ");
+		t2.setText(" ");
+		t3.setText(" ");
+		t4.setText(" ");
+		t5.setText(" ");
+		t6.setText(" ");
+		
 
 		}
 

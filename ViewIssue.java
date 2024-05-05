@@ -119,8 +119,8 @@ class ViewIssue extends JFrame implements ActionListener
 		
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
 			
 			//query
 			smt=con.createStatement();
@@ -142,10 +142,6 @@ class ViewIssue extends JFrame implements ActionListener
 			i=j=0;
 			while(rs.next())
 			{
-				data[i][j]=rs.getString(1);
-				j++;
-				data[i][j]=rs.getString(6);
-				j++;
 				data[i][j]=rs.getString(2);
 				j++;
 				data[i][j]=rs.getString(3);
@@ -153,6 +149,10 @@ class ViewIssue extends JFrame implements ActionListener
 				data[i][j]=rs.getString(4);
 				j++;
 				data[i][j]=rs.getString(5);
+				j++;
+				data[i][j]=rs.getString(6);
+				j++;
+				data[i][j]=rs.getString(7);
 				j++;
 			
 				

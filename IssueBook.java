@@ -111,7 +111,7 @@ class IssueBook extends JFrame implements ActionListener
 		Bk_Author.setBounds(20,220,200,30);
 		Bk_Author.setFont(f1);
 
-		Isue_Dt=new JLabel("Issued_Date : ");
+		Isue_Dt=new JLabel("Issued_Date : (YYYY-MM-DD)");
 		Isue_Dt.setBounds(20,270,200,30);
 		Isue_Dt.setFont(f1);
 		
@@ -142,7 +142,7 @@ class IssueBook extends JFrame implements ActionListener
 		t4.setFont(f2);
 
 		
-		t5=new JTextField("dd/mm/yyyy");
+		t5=new JTextField();
 		t5.setBounds(300,270,200,30);
 		t5.setFont(f2);
 
@@ -205,14 +205,14 @@ class IssueBook extends JFrame implements ActionListener
 	{
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-				
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+			
 			
 				
-				ps1=con.prepareStatement("select * from members where  u_name=? and upass=?");
-				ps2=con.prepareStatement("select * from books_detail where bname=? and publisher=?");
-				smt=con.prepareStatement("Insert into view_issue values(?,?,?,?,?,?)");
+				ps1=con.prepareStatement("select * from members where  name=? and password=?");
+				ps2=con.prepareStatement("select * from books_detail where book_name=? and publisher=?");
+				smt=con.prepareStatement("Insert into view_issue(name,password,book_name,author,issued,period) values(?,?,?,?,?,?)");
 				
 		}catch(Exception ae)
 		{
@@ -366,14 +366,22 @@ class IssueBook extends JFrame implements ActionListener
 								{
 									
 									smt.setString(1,t1.getText());
-									smt.setString(2,t3.getText());
-									smt.setString(3,t4.getText());
-									smt.setString(4,t5.getText());
-									smt.setString(5,t6.getText());
-									smt.setString(6,t2.getText());
+									smt.setString(2,t2.getText());
+									smt.setString(3,t3.getText());
+									smt.setString(4,t4.getText());
+									smt.setString(5,t5.getText());
+									smt.setString(6,t6.getText());
 									smt.executeUpdate();
 								
-							JOptionPane.showMessageDialog(this,t1.getText()+"Successfully Issued Book!!");
+							JOptionPane.showMessageDialog(this,t1.getText()+" Successfully Issued Book!!");
+
+							t1.setText(" ");
+							t2.setText(" ");
+							t3.setText(" ");
+							t4.setText(" ");
+							t5.setText(" ");
+							t6.setText(" ");
+
 							}
 						}
 						else

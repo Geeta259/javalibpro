@@ -343,12 +343,12 @@ public void connec()
 {
 	try
 	{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+		
 		getId();	
 
-smt=con.prepareStatement("Insert into books_detail values(?,?,?,?,?,?,?,?,?)");
+smt=con.prepareStatement("Insert into books_detail() values(?,?,?,?,?,?,?,?,?)");
 	}catch(Exception ae)
 	{
 		JOptionPane.showMessageDialog(null,"NOT ANY NEW RECORD ADD");
@@ -400,9 +400,20 @@ public void enterRecord()
 		smt.setString(7,t7.getText());
 		smt.setString(8,str);
 		smt.setString(9,t8.getText());
+		
 				
 		smt.executeUpdate();
 		JOptionPane.showMessageDialog(this,t1.getText()+"Record Successfully Saved in Database");
+
+		t1.setText(" ");
+		t2.setText(" ");
+		t3.setText(" ");
+		t4.setText(" ");
+		t5.setText(" ");
+		t6.setText(" ");
+		t7.setText(" ");
+		t8.setText(" ");
+		c1.setSelectedItem("Select Category");
 
 	}
 

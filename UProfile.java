@@ -138,7 +138,7 @@ class UProfile extends JFrame implements ActionListener
 		gender.setBounds(20,240,250,30);
 		gender.setFont(f1);
 
-		dob=new JLabel("YOUR D.O.B :");
+		dob=new JLabel("YOUR D.O.B :(YYYY-MM-DD)");
 		dob.setBounds(20,290,200,30);
 		dob.setFont(f1);
 
@@ -299,12 +299,13 @@ class UProfile extends JFrame implements ActionListener
 		{
 
 			
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
-
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/library","root","mysqlpasswd@25");
+					
+			
 		s=con.createStatement();
-		ps=con.prepareStatement("Select * from members where u_name=? and upass=?");
-		ps1=con.prepareStatement("Update members set u_name=?,upass=?,gender=?,dob=?,address=?,city=?,email=?,contact=? where u_name=? and upass=?");
+		ps=con.prepareStatement("Select * from members where name=? and password=?");
+		ps1=con.prepareStatement("Update members set name=?,password=?,gender=?,dob=?,address=?,city=?,email=?,contact=? where name=? and password=?");
 
 		}catch(Exception ae)
 		{
@@ -373,22 +374,22 @@ public void  search()
 		while(rs.next())
 		{
 			
-			t1.setText(rs.getString(1));
-			t2.setText(rs.getString(2));
+			t1.setText(rs.getString(2));
+			t2.setText(rs.getString(3));
 			
-			String s1=rs.getString(3);					
+			String s1=rs.getString(4);					
 			c1.setSelectedItem(s1);
 			
-			t3.setText(rs.getString(4));
-			t4.setText(rs.getString(5));
+			t3.setText(rs.getString(5));
+			t4.setText(rs.getString(6));
 			
 			
-			String s2=rs.getString(6);					
+			String s2=rs.getString(7);					
 			c2.setSelectedItem(s2);
 			
-			t5.setText(rs.getString(7));
+			t5.setText(rs.getString(8));
 
-			t6.setText(rs.getString(8));
+			t6.setText(rs.getString(9));
 		
 
 			ts.setEditable(false);
@@ -431,12 +432,12 @@ Validation valid = new Validation();
 		
 		try
 		{
-			test=new Date(t3.getText());
+			test=new Date();
 			te=test.getTime();
 
 		}catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null,"Invalid Date Format!It Should be like(dd-aug(mm)-yyyy)");
+			JOptionPane.showMessageDialog(null,"Invalid Date Format!It Should be like(YYYY-MM-DD)");
 			//t3.setText(" ");
 			c=1;
 	
@@ -512,9 +513,28 @@ m=JOptionPane.showConfirmDialog(this,"Are You Sure You Want to Update Your Profi
 		ps1.setString(9,t.getText());
 		ps1.setString(10,ts.getText());		
 		ps1.executeUpdate();
-		JOptionPane.showMessageDialog(this,t1.getText()+"Record Successfully Updated in Database");
+		JOptionPane.showMessageDialog(this,t1.getText()+" Record Successfully Updated in Database");
 		
+		t.setText(" ");
+			t.setEditable(true);
+			ts.setText(" ");
+			ts.setEditable(true);
+			t1.setText(" ");
+			t1.setEditable(false);
+			t2.setText(" ");
+			t2.setEditable(false);
+			t3.setText(" ");
+			t3.setEditable(false);
+			t4.setText(" ");
+			t4.setEditable(false);
+			t5.setText(" ");
+			t5.setEditable(false);
+			t6.setText(" ");
+			t6.setEditable(false);
+			c1.setSelectedItem("Select Gender");
+			c2.setSelectedItem("Select City");
 		
+
 
 		}
 	    
