@@ -33,6 +33,9 @@ This project is a Library Management System implemented in core Java. It provide
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## For Related Database query
+Check out library_sql_query.txt file.
+
 ADMIN PANEL:
 ![Screenshot (300)](https://github.com/Geeta259/javalibpro/assets/75520947/a4734658-d1ea-4528-bb34-b849befa871b)
 ![Screenshot (303)](https://github.com/Geeta259/javalibpro/assets/75520947/9613972a-0d1e-446b-9cbb-039f03d08440)
